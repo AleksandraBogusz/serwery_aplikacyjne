@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+    wildfly:
+        container_name: wildfly
+        image: jboss/wildfly:21.0.2.Final
+        ports:
+            - "8080:8080"

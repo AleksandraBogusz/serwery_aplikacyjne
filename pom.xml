@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pl.edu.ug</groupId>
+    <artifactId>serwery_aplikacyjne</artifactId>
+    <packaging>war</packaging>
+    <version>1.0.0</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <!--false bo najnowszy wildfly nie potrzebuje pliku web.xml-->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>app</warName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0.1</version>
+            <!--ta zależność jest już zainstalowana w widlfly -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
