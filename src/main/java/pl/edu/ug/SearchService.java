@@ -17,13 +17,16 @@ import static java.net.http.HttpResponse.BodyHandlers;
 @Path("/photos")
 public class SearchService {
 
-    private static String URL = "https://api.unsplash.com/search/photos?query=%s&perPage=30";
+    private static String URL = "https://api.unsplash.com/search/photos?query=%s&perPage=30&page=%s";
     private static String KEY = "VPeVpItnfrIKzty6dGNidtHVz0vGHvR7653ykSYUFVI";
 
     @GET
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response search(@QueryParam("query") String query) throws IOException, InterruptedException {
+    public Response search(
+            @QueryParam("query") String query,
+            @QueryParam("page") String page
+    ) throws IOException, InterruptedException {
 
         if (query == null) {
             return Response
@@ -36,7 +39,7 @@ public class SearchService {
 
         var request = HttpRequest
                 .newBuilder()
-                .uri(URI.create(String.format(URL, query)))
+                .uri(URI.create(String.format(URL, query, page)))
                 .timeout(Duration.ofSeconds(2L))
                 .header("Content-Type", "application/json")
                 .header("Authorization", String.format("Client-ID %s", KEY))
@@ -56,6 +59,7 @@ public class SearchService {
 
         return Response
                 .status(200)
+                .header("Access-Control-Allow-Origin", "*")
                 .entity(body)
                 .build();
     }
