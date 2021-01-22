@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const URL = 'https://api.unsplash.com/search/photos';
+const URL = 'http://localhost:8080/app/photos/search';
 
 export default function ScrollBar(props) {
     const [data, setData] = useState([]);
@@ -13,13 +13,9 @@ export default function ScrollBar(props) {
 
         const options = {
             method: "GET",
-            headers: {
-                "Authorization": "Client-ID VPeVpItnfrIKzty6dGNidtHVz0vGHvR7653ykSYUFVI",
-                "Content-Type": "application/json"
-            }
         }
 
-        fetch(`${URL}?query=${props.searchTerm}&page=${page}&per_page=30`, options)
+        fetch(`${URL}?query=${props.searchTerm}&page=${page}`, options)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Status not ok: ${response.status}`)
@@ -35,7 +31,6 @@ export default function ScrollBar(props) {
                 setPage(page + 1);
             })
             .catch(err => {
-                //TODO: figure out how error handling works for this component
                 console.log(err);
             })
     }
